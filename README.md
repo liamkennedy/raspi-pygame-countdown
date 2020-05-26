@@ -5,8 +5,7 @@ Launch Countdown Timer (version configured for SpaceX DM2 #LaunchAmerica)
 
 Super early release of this code.. and.. I'm a bit busy on other launch prep activities to be able to devote a lot of time beyond this release.  I built this entirely for my own use - as part of a [Launch Watch Party for the SpaceX DM2](https://www.spaceforhumanity.org/demo-2-launch-party) mission that I am helping produce.  
 
-
-I'm running this on my own trusty image with Raspbian Stretch-LITE(!!!).  I run this as a console application - not using any GUI. 
+I'm running this on my own trusty image with Raspbian Stretch-LITE(!!!). I run this as a console application - not using any GUI. It's built to autoscale the output to whatever monitor you are using. It also works nicely on the Official Touchscreen. It looks good on my gear.
 
 Just clone the repo and give it a try I guess.  Good Luck!!
 
