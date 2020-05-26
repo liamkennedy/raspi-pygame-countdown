@@ -50,11 +50,11 @@ pygame.mouse.set_visible(False)
 
 class banner :
       ASPECTRATIO = float( pygame.display.Info().current_w ) / float(pygame.display.Info().current_h)
-      
+      SCRIPTPATH = os.path.dirname(os.path.realpath(__file__)) # allows running from boot
       def __init__(self, filename ) :
           self.filename = filename
           self.surface = pygame.Surface(pys.screen.get_size())
-          self.image = pygame.image.load( filename ) # assuming python script / directory is as expected.  May need to check this
+          self.image = pygame.image.load( self.SCRIPTPATH+"/"+filename ) # assuming python script / directory is as expected.  May need to check this
           
           #Scale photo to the screen surface
           photoRect = self.image.get_rect()
