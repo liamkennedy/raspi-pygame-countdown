@@ -1,5 +1,5 @@
 # raspi-pygame-countdown
-Launch Countdown Timer
+Launch Countdown Timer (version configured for SpaceX DM2 #LaunchAmerica)
 
 Super early release of this code.. and.. I'm a bit busy on other launch prep activities to be able to devote a lot of time beyond this release.  I built this entirely for my own use - as part of a [Launch Watch Party for the SpaceX DM2](https://www.spaceforhumanity.org/demo-2-launch-party) mission that I am helping produce.  
 
