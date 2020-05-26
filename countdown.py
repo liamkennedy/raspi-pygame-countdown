@@ -40,6 +40,9 @@ import pygame.gfxdraw
 from pygtest import pyscreen
 import time
 import datetime
+import os 
+
+print "Current Working Directory", os.getcwd()
 
 pys = pyscreen() 
 pygame.mouse.set_visible(False)
@@ -50,7 +53,7 @@ class banner :
       def __init__(self, filename ) :
           self.filename = filename
           self.surface = pygame.Surface(pys.screen.get_size())
-          self.image = pygame.image.load( "/home/pi/tmp/countdown/"+filename )
+          self.image = pygame.image.load( filename ) # assuming python script / directory is as expected.  May need to check this
           
           #Scale photo to the screen surface
           photoRect = self.image.get_rect()
