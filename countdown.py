@@ -43,6 +43,7 @@ import datetime
 import os 
 
 print "Current Working Directory", os.getcwd()
+print "Script Absolute Path", os.path.dirname(os.path.realpath(__file__))
 
 pys = pyscreen() 
 pygame.mouse.set_visible(False)
