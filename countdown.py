@@ -224,7 +224,7 @@ if False :
        line+=1
 
 
-d = datetime.datetime(2020, 5, 27, 20, 33)  # UTC time of launch.  This is the default in the countdown class 
+d = datetime.datetime(2020, 5, 30, 19, 32)  # UTC time of launch.  This is the default in the countdown class 
 print d.year, d.month, d.day, d.hour, d.second
 
 
