@@ -192,7 +192,8 @@ print d.year, d.month, d.day, d.hour, d.second
 # Initialize the countdown object.  This uses the defaults for #LaunchAmerica
 countdown = countdown()
 
-while datetime.datetime.utcnow() < countdown.target_time :
+# Now runs loop all the time... and becomes a count UP timer after target reaches
+while True: # datetime.datetime.utcnow() < countdown.target_time :
                        
       pys.screen.fill((0,0,0))
       #pys.screen.blit(banners[current_banner].surface,(0,0))
