@@ -33,6 +33,7 @@
 # To install the fonts you will need to run install-fonts.sh
 # those two fonts come from dafont.com
 # 
+# updated for May 30 Launch 
 
 import ConfigParser
 import pygame
@@ -80,7 +81,7 @@ class countdown :
       # Pygame display needs to be initialized first
       print "SCREEN WIDTH:", pygame.display.Info().current_w
       SCALE = pygame.display.Info().current_w/1920.0 # used to remap the positions to account for display differences to 1920x1080
-      TARGET_TIME = datetime.datetime(2020, 5, 27, 20, 33) # Time is in UTC!!!!
+      TARGET_TIME = datetime.datetime(2020, 5, 30, 19, 22) # Time is in UTC!!!!
       TIMERFONT = [ "dsdigital", 340, True, (255,255,0) ] # fontname, size, bold, color = yellow
       LEGENDFONT = ( "coolvetica", 136, False, (0,255,0) ) # fontname, size, bold, color = green
       # These positions represent the top / center position of the days/hrs/mins/sec based upon 1920x1080 screen
