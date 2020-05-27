@@ -129,7 +129,14 @@ class countdown :
           
       def display(self) :
           
-          time_until = self.target_time - datetime.datetime.utcnow()
+          if self.target_time > datetime.datetime.utcnow() :
+             # In regular countdown mode 
+             time_until = self.target_time - datetime.datetime.utcnow()
+          else  : 
+             # After countdown expires - it becomes a COUNT UP... or MET... or Mission Elapsed Time.
+             # Might want to have some additional indication of this.  Maybe different color for numbers - or some other flag.       
+             time_until = datetime.datetime.utcnow() - self.target_time
+
           tdays = time_until.days
           thrs  = time_until.seconds // 3600 % 3600 # (remainder or hours) 60m x 60s per hour
           tmin  = time_until.seconds // 60 % 60 # (remainder of minutes)
