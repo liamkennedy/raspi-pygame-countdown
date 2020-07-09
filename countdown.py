@@ -32,8 +32,8 @@
 # Basic package requirement is pygame - but there are probably others too
 # To install the fonts you will need to run install-fonts.sh
 # those two fonts come from dafont.com
-# 
-# updated for May 30 Launch 
+#  
+# Updated for MARS 2020 countdown
 
 import ConfigParser
 import pygame
@@ -46,8 +46,20 @@ import os
 print "Current Working Directory", os.getcwd()
 print "Script Absolute Path", os.path.dirname(os.path.realpath(__file__))
 
+import sys, signal 
+
+def signal_handler(signal, frame):
+  print 'Signal: {}'.format(signal)
+  time.sleep(1)
+  pygame.quit()
+  sys.exit(0) 
+  
 pys = pyscreen() 
 pygame.mouse.set_visible(False)
+
+# makes it possible to kill the process even if it is started at boot in /etc/init.d/* file
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
 
 class banner :
       ASPECTRATIO = float( pygame.display.Info().current_w ) / float(pygame.display.Info().current_h)
@@ -81,7 +93,7 @@ class countdown :
       # Pygame display needs to be initialized first
       print "SCREEN WIDTH:", pygame.display.Info().current_w
       SCALE = pygame.display.Info().current_w/1920.0 # used to remap the positions to account for display differences to 1920x1080
-      TARGET_TIME = datetime.datetime(2020, 5, 30, 19, 22) # Time is in UTC!!!!
+      TARGET_TIME = datetime.datetime(2020, 7, 30, 11, 50) # Time is in UTC!!!!
       TIMERFONT = [ "dsdigital", 340, True, (255,255,0) ] # fontname, size, bold, color = yellow
       LEGENDFONT = ( "coolvetica", 136, False, (0,255,0) ) # fontname, size, bold, color = green
       # These positions represent the top / center position of the days/hrs/mins/sec based upon 1920x1080 screen
@@ -197,8 +209,11 @@ def loadconfig(op) :
 
 
 banners = []
-banners.append( banner( "la-logo.png" ) )
-banners.append( banner( "la_bob_doug.png" ) )
+banners.append( banner( "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+banners.append( banner( "MARS-2020-BANNER.png" ) )
+banners.append( banner( "MARS-2020-BANNER-2.png" ) )
+#banners.append( banner( "la-logo.png" ) )
+#banners.append( banner( "la_bob_doug.png" ) )
 #banners.append( banner( "la_banner_za.jpg" ) )
 
 print "banners:", len(banners)
@@ -225,7 +240,8 @@ if False :
        line+=1
 
 
-d = datetime.datetime(2020, 5, 30, 19, 32)  # UTC time of launch.  This is the default in the countdown class 
+d = datetime.datetime(2020, 7, 30, 11, 50)  # UTC time of launch.  This is the default in the countdown class
+print d 
 print d.year, d.month, d.day, d.hour, d.second
 
 

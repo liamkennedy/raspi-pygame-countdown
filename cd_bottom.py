@@ -1,4 +1,4 @@
-#COMPLEX
+#Updated for MARS 2020 countdown
 import ConfigParser
 import pygame
 import pygame.gfxdraw
@@ -6,8 +6,20 @@ from pygtest import pyscreen
 import time
 import datetime
 
+import sys, signal 
+
+def signal_handler(signal, frame):
+  print 'Signal: {}'.format(signal)
+  time.sleep(1)
+  pygame.quit()
+  sys.exit(0) 
+  
 pys = pyscreen() 
 pygame.mouse.set_visible(False)
+
+# makes it possible to kill the process even if it is started at boot in /etc/init.d/* file
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
 
 class banner :
       ASPECTRATIO = float( pygame.display.Info().current_w ) / float(pygame.display.Info().current_h)
@@ -41,12 +53,16 @@ class countdown :
       # Pygame display needs to be initialized first
       print "SCREEN WIDTH:", pygame.display.Info().current_w
       SCALE = pygame.display.Info().current_w/1920.0 # used to remap the positions to account for display differences to 1920x1080
-      TARGET_TIME = datetime.datetime(2020, 5, 30, 19, 32) # Time is in UTC!!!!
+      #TARGET_NAME = "Docking of the Capsule Endeavour to the ISS - 10:29AM ET MAY 31 2020"
+      TARGET_NAME = "Launch of MARS 2020 PERSEVERANCE - 7:50AM ET JUL 30 2020"
+      TARGET_TIME = datetime.datetime(2020, 7, 30, 11, 50) # Time is in UTC!!!!
+      #TARGET_TIME = datetime.datetime(2020, 5, 30, 19, 20) # Time is in UTC!!!!
       TIMERFONT = [ "dsdigital", 130, True, (255,255,0) ] # fontname, size, bold, color = yellow
       LEGENDFONT = ( "coolvetica", 60, False, (0,255,0) ) # fontname, size, bold, color = green
+      NAMEFONT = ( "arial", 40, False, (255,255,0) )
       # These positions represent the top / center position of the days/hrs/mins/sec based upon 1920x1080 screen
       TIMER_LINE = 800
-      LEGEND_LINE = 920 
+      LEGEND_LINE = 916 
       TIMER_X = [ 420 , 750, 1120, 1490 ] 
       TIMER_Y = [ TIMER_LINE, TIMER_LINE, TIMER_LINE, TIMER_LINE ] 
       
@@ -55,8 +71,10 @@ class countdown :
       DEBUG = False
       
       def __init__(self, targettime = TARGET_TIME, \
+                         targetname = TARGET_NAME, \
                          timerfont = TIMERFONT, \
                          legendfont = LEGENDFONT, \
+                         namefont = NAMEFONT, \
                          timerx = TIMER_X, \
                          timery = TIMER_Y, \
                          legendx = LEGEND_X, \
@@ -73,15 +91,25 @@ class countdown :
              print " legendy:", legendy
              print " SCALE:", self.SCALE, countdown.SCALE
                          
-          self.target_time = targettime 
+          self.target_time = targettime
+          self.target_name = targetname 
           self.timer_font = pygame.font.SysFont(timerfont[0], int(timerfont[1]*countdown.SCALE) , bold=timerfont[2])
-          self.legend_font = pygame.font.SysFont(legendfont[0], int(legendfont[1]*countdown.SCALE) , bold=legendfont[2])          
+          self.legend_font = pygame.font.SysFont(legendfont[0], int(legendfont[1]*countdown.SCALE) , bold=legendfont[2])
+          self.name_font = pygame.font.SysFont(namefont[0], int(namefont[1]*countdown.SCALE) , bold=namefont[2])          
           self.legend_color = legendfont[3]
           self.timer_color = timerfont[3]
+          
+          self.name_color = namefont[3]
           self.timer_x = [ int(timerx[0]*countdown.SCALE), int(timerx[1]*countdown.SCALE),int(timerx[2]*countdown.SCALE), int(timerx[3]*countdown.SCALE) ]          
           self.timer_y = [ int(timery[0]*countdown.SCALE), int(timery[1]*countdown.SCALE),int(timery[2]*countdown.SCALE), int(timery[3]*countdown.SCALE) ]  
           self.legend_x = [ int(legendx[0]*countdown.SCALE), int(legendx[1]*countdown.SCALE),int(legendx[2]*countdown.SCALE), int(legendx[3]*countdown.SCALE) ]
           self.legend_y = [ int(legendy[0]*countdown.SCALE), int(legendy[1]*countdown.SCALE),int(legendy[2]*countdown.SCALE), int(legendy[3]*countdown.SCALE) ] 
+          # calc position of the countdown NAME text
+          # NOTE:  I am probably nuts to tie this to the line position of the legend.  I'll leave this for now though.   
+          self.name_x = int( (1920.0 / 2.0) * countdown.SCALE)
+          tw,th = self.legend_font.size("SAMPLE")
+          self.name_y = int( self.legend_y[0]+th + 2*countdown.SCALE )
+ 
           if self.DEBUG :                  
              print "TIMER_X", self.timer_x
              print "TIMER_Y", self.timer_y
@@ -91,13 +119,13 @@ class countdown :
       def display(self) :
           
           if self.target_time > datetime.datetime.utcnow() :
-                 # In regular countdown mode 
+             # In regular countdown mode 
              time_until = self.target_time - datetime.datetime.utcnow()
           else  : 
              # After countdown expires - it becomes a COUNT UP... or MET... or Mission Elapsed Time.
              # Might want to have some additional indication of this.  Maybe different color for numbers - or some other flag.       
              time_until = datetime.datetime.utcnow() - self.target_time
-
+              
           tdays = time_until.days
           thrs  = time_until.seconds // 3600 % 3600 # (remainder or hours) 60m x 60s per hour
           tmin  = time_until.seconds // 60 % 60 # (remainder of minutes)
@@ -132,7 +160,11 @@ class countdown :
              stxt = "SECONDS" 
           else :
              stxt = "SECOND"
-          self.center( stxt, self.legend_font, self.legend_x[3], self.legend_y[3], self.legend_color)       
+          self.center( stxt, self.legend_font, self.legend_x[3], self.legend_y[3], self.legend_color)
+          
+          # Display Target Countdown Name
+          self.center( self.target_name, self.name_font, self.name_x, self.name_y, self.name_color)
+                 
       
       def center(self, text, font, x,y, clr ) :
           if self.DEBUG :   
@@ -157,8 +189,9 @@ def loadconfig(op) :
 
 
 banners = []
-banners.append( banner( "la-logo.png" ) )
-banners.append( banner( "la_bob_doug.png" ) )
+banners.append( banner( "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+#banners.append( banner( "M2020-Launch-Red-Circle-Logo-White-Text-Side-Stacked-4.png" ) )
+#banners.append( banner( "la_bob_doug.png" ) )
 #banners.append( banner( "la_banner_za.jpg" ) )
 
 print "banners:", len(banners)
@@ -192,11 +225,10 @@ print d.year, d.month, d.day, d.hour, d.second
 # Initialize the countdown object.  This uses the defaults for #LaunchAmerica
 countdown = countdown()
 
-# Now runs loop all the time... and becomes a count UP timer after target reaches
-while True: # datetime.datetime.utcnow() < countdown.target_time :
+while True : #datetime.datetime.utcnow() < countdown.target_time :
                        
       pys.screen.fill((0,0,0))
-      #pys.screen.blit(banners[current_banner].surface,(0,0))
+      pys.screen.blit(banners[current_banner].surface,(0,0))
 
       countdown.display()
 
