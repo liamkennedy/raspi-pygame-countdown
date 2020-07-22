@@ -73,15 +73,15 @@ banner_interval = 10 # 60 seconds
 current_banner = 0
         
 
-d = datetime.datetime(2020, 5, 27, 20, 33)  # UTC time of launch.  This is the default in the countdown class 
-print d.year, d.month, d.day, d.hour, d.second
+#d = datetime.datetime(2020, 5, 27, 20, 33)  # UTC time of launch.  This is the default in the countdown class 
+#print d.year, d.month, d.day, d.hour, d.second
 
 
 # Initialize the countdown object.  This uses the defaults for #LaunchAmerica
 
-TARGET_NAME = "Launch of UAE HOPE PROBE - 12:43 AM GST JUL 17 2020"
+TARGET_NAME = "Launch of UAE HOPE PROBE - 1:58 AM UAE JUL 20 2020"
 print TARGET_NAME
-TARGET_TIME = datetime.datetime(2020, 7, 16, 20, 43, 0) # Time is in UTC!!!! HOPE PROBE UAE
+TARGET_TIME = datetime.datetime(2020, 7, 19, 22, 58, 0) # Time is in UTC!!!! HOPE PROBE UAE
 TIMERFONT = [ "dsdigital", 130, True, (255,255,0) ] # fontname, size, bold, color = yellow
 LEGENDFONT = ( "coolvetica", 60, False, (0,255,0) ) # fontname, size, bold, color = green
 NAMEFONT = ( "arial", 40, False, (255,255,0) )

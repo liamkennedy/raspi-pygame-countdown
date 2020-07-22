@@ -62,6 +62,8 @@ signal.signal(signal.SIGINT, signal_handler)
 
 banners = []
 banners.append( banner( pygame, pys, "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+banners.append( banner( pygame, pys, "s4h_logo.png" ) )
+
 
 print "banners:", len(banners)
 
@@ -69,7 +71,7 @@ print "banners:", len(banners)
 #pys.screen.blit(banners[0].surface,(0,0))
 #pygame.display.update()
 banner_switched = datetime.datetime.utcnow()
-banner_interval = 10 # 60 seconds
+banner_interval = 15 # 60 seconds
 current_banner = 0
         
 # Initialize the countdown object.  This uses the defaults for #LaunchAmerica
