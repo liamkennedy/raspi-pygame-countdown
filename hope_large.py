@@ -61,7 +61,8 @@ signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
 
 banners = []
-banners.append( banner( pygame, pys, "Emirates_Mars_Mission_Logo-9.png" ) )
+pre = "images/hope/"
+banners.append( banner( pygame, pys, pre+"Emirates_Mars_Mission_Logo-9.png" ) )
 
 print "banners:", len(banners)
 

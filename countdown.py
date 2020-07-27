@@ -427,13 +427,15 @@ if __name__ == '__main__':
    signal.signal(signal.SIGTERM, signal_handler)
    signal.signal(signal.SIGINT, signal_handler)
 
+   #pre = "images/launchamerica/"
+   pre = "images/mars2020/"
    banners = []
-   banners.append( banner( pygame, pys, "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
-   banners.append( banner( pygame, pys, "MARS-2020-BANNER.png" ) )
-   banners.append( banner( pygame, pys, "MARS-2020-BANNER-2.png" ) )
-   #banners.append( banner( pygame, pys, "la-logo.png" ) )
-   #banners.append( banner( pygame, pys, "la_bob_doug.png" ) )
-   #banners.append( banner( pygame, pys, "la_banner_za.jpg" ) )
+   banners.append( banner( pygame, pys, pre+"M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+   banners.append( banner( pygame, pys, pre+"MARS-2020-BANNER.png" ) )
+   banners.append( banner( pygame, pys, pre+"MARS-2020-BANNER-2.png" ) )
+   #banners.append( banner( pygame, pys, pre+"la-logo.png" ) )
+   #banners.append( banner( pygame, pys, pre+"la_bob_doug.png" ) )
+   #banners.append( banner( pygame, pys, pre+"la_banner_za.jpg" ) )
    
    print "banners:", len(banners)
    

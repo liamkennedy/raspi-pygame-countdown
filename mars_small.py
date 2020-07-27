@@ -60,11 +60,11 @@ from countdown import countdown, banner
 signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
 
+pre = "images/mars2020/"
 banners = []
-banners.append( banner( pygame, pys, "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
-banners.append( banner( pygame, pys, "s4h_logo.png" ) )
-
-
+banners.append( banner( pygame, pys, pre+"M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+banners.append( banner( pygame, pys, pre+"s4h_logo_small.png" ) )
+banners.append( banner( pygame, pys, pre+"tps_logo_small.png" ) )
 print "banners:", len(banners)
 
 #Display the first banner image 
@@ -104,7 +104,14 @@ countdown = countdown(   pys, \
                          legendx = LEGEND_X, \
                          legendy = LEGEND_Y, \
                          displayname = True )
-                         
+
+pre = "mars2020/"                         
+countdown.videos.append(pre+"mars2020_rover_model-1280.mp4")
+countdown.videos.append(pre+"mars2020_animation_sample_collection-1280.mp4")
+countdown.videos.append(pre+"NASAMars2020RoverHasAName-1280.mp4")
+countdown.videos.append(pre+"Building_NASAs_Mars2020Rover-1280.mp4")
+countdown.videos.append(pre+"Mars2020TargetJezeroCrater-1280.mp4")
+countdown.videos.append(pre+"MarsHelicopterTrailer-1280.mp4")
 
 while True : #datetime.datetime.utcnow() < countdown.target_time :
                        

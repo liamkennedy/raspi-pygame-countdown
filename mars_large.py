@@ -60,10 +60,12 @@ from countdown import countdown, banner
 signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
 
+pre = "images/mars2020/"
 banners = []
-banners.append( banner( pygame, pys, "M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
-banners.append( banner( pygame, pys, "MARS-2020-BANNER.png" ) )
-banners.append( banner( pygame, pys, "MARS-2020-BANNER-2.png" ) )
+banners.append( banner( pygame, pys, pre+"M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
+banners.append( banner( pygame, pys, pre+"MARS-2020-BANNER.png" ) )
+banners.append( banner( pygame, pys, pre+"MARS-2020-BANNER-2.png" ) )
+banners.append( banner( pygame, pys, pre+"s4h_TPS_logo.png" ) )
 print "banners:", len(banners)
 
 #Display the first banner image 

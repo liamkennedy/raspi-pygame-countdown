@@ -61,7 +61,8 @@ signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
 
 banners = []
-banners.append( banner( pygame, pys, "Emirates_Mars_Mission_Logo-9.png" ) )
+pre = "images/hope/"
+banners.append( banner( pygame, pys, pre+"Emirates_Mars_Mission_Logo-9.png" ) )
 
 print "banners:", len(banners)
 
@@ -79,9 +80,9 @@ current_banner = 0
 
 # Initialize the countdown object.  This uses the defaults for #LaunchAmerica
 
-TARGET_NAME = "Launch of UAE HOPE PROBE - 1:58 AM UAE JUL 20 2020"
+TARGET_NAME = "Launch of UAE HOPE PROBE - 1:58:14 AM UAE JUL 20 2020"
 print TARGET_NAME
-TARGET_TIME = datetime.datetime(2020, 7, 19, 22, 58, 0) # Time is in UTC!!!! HOPE PROBE UAE
+TARGET_TIME = datetime.datetime(2020, 7, 19, 21, 58, 14) # Time is in UTC!!!! HOPE PROBE UAE
 TIMERFONT = [ "dsdigital", 130, True, (255,255,0) ] # fontname, size, bold, color = yellow
 LEGENDFONT = ( "coolvetica", 60, False, (0,255,0) ) # fontname, size, bold, color = green
 NAMEFONT = ( "arial", 40, False, (255,255,0) )
@@ -107,9 +108,11 @@ countdown = countdown(   pys, \
                          displayname = True )
                          
 countdown.videos.append("VID-20200627-WA0038.mp4")
+countdown.videos.append("DG Video addressing Yousef Al Otaiba.mp4")
 countdown.videos.append("Sarah Al Amiri Jouney.mp4")
 countdown.videos.append("Hazza Interview with YAO.mp4")
-countdown.videos.append("01HQ-small.mp4")
+
+#countdown.videos.append("01HQ-small.mp4")
 countdown.videos.append("Hope-Journey-ALL.mp4")
 
 while True : #datetime.datetime.utcnow() < countdown.target_time :
