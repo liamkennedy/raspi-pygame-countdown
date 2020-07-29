@@ -103,6 +103,7 @@ countdown = countdown(   pys, \
                          timery = TIMER_Y, \
                          legendx = LEGEND_X, \
                          legendy = LEGEND_Y, \
+                         cd_JSON = 'http://issabove.pythonanywhere.com/static/mars2020.txt', \
                          displayname = False )
                          
 
@@ -124,7 +125,7 @@ while True : #datetime.datetime.utcnow() < countdown.target_time :
          current_banner +=1 
          if current_banner > len(banners) -1 :
             current_banner = 0
-         print "switching to banner:",banners[current_banner].filename   
+         #print "switching to banner:",banners[current_banner].filename   
          banner_switched = datetime.datetime.utcnow()
     
 time.sleep(20)

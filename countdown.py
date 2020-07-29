@@ -74,6 +74,7 @@ import datetime
 import os 
 
 import sys, signal, subprocess 
+import json,urllib2
 
 def signal_handler(signal, frame):
   print 'Signal: {}'.format(signal)
@@ -157,7 +158,8 @@ class countdown :
                          timery = TIMER_Y, \
                          legendx = LEGEND_X, \
                          legendy = LEGEND_Y, \
-                         displayname = DISPLAY_NAME ) :
+                         displayname = DISPLAY_NAME, \
+                         cd_JSON = None ) :
           
           if self.DEBUG :
              print "COUNTDOWN:"
@@ -192,6 +194,11 @@ class countdown :
           self.name_y = int( self.legend_y[0]+th + 1*countdown.SCALE )
           self.displayname = displayname
           self.fullscreenvideo = False
+          
+          # get the target time from a web source rather than the date/time in the code (allows for target to be adjusted e.g. with a launch delay)
+          if cd_JSON :
+             self.countdownJSON = cd_JSON
+             self.getCountdownTime() 
  
           self.videos = [] # array of videos - files need to be in /videos folder
           
@@ -297,7 +304,43 @@ class countdown :
                  print "Video Kill ERROR", repr(Err)
                           
 
-      
+      def getCountdownTime( self ) :
+          print "Checking counddown time at:", self.countdownJSON
+          #'http://issabove.pythonanywhere.com/static/'
+          
+              
+          try :
+              raw = urllib2.urlopen(self.countdownJSON).read()
+              data=json.loads(raw)
+              ye= int(data['year'])
+              mo= int(data['month'])
+              da= int(data['day'])
+              hr= int(data['hour'])
+              mi= int(data['minute'])
+              se= int(data['second'])
+              new_name = data['name']
+              
+              tt = datetime.datetime(ye,mo,da,hr,mi,se)
+              
+              tt_adjust = self.target_time - self.target_time_original  # have we added (or subtracted) any time from the countdown time (to adjust for streaming lag)
+              
+              print "Target Time  CURRENT:", self.target_time
+              print "            ORIGINAL:", self.target_time_original
+              print "          ADJUSTMENT:", tt_adjust
+              print "                 NEW:", tt
+              print "                NAME:", new_name
+              
+              self.target_time_original = tt
+              self.target_time = tt + tt_adjust
+              print "        ADJUSTED NEW:", self.target_time                    
+              
+              self.target_time_original = tt
+              self.target_time = tt + tt_adjust 
+              
+              self.target_name = new_name 
+               
+          except Exception, E :
+              print "PythonAnywhere Error: " + str(E) 
           
       def checkKey( self ) :
           keyOffCounter = 0
@@ -403,7 +446,10 @@ class countdown :
                  
                  elif event.key == pygame.K_F2:
                       self.killVideo()
-                             
+                      
+                 elif event.key == pygame.K_BACKSPACE:
+                      print "BACKSPACE: Get Updated Countdown Target" 
+                      self.getCountdownTime()       
                   
           
 def loadconfig(op) :
@@ -488,6 +534,6 @@ if __name__ == '__main__':
             current_banner +=1 
             if current_banner > len(banners) -1 :
                current_banner = 0
-            print "switching to banner:",banners[current_banner].filename   
+            #print "switching to banner:",banners[current_banner].filename   
             banner_switched = datetime.datetime.utcnow()
    
