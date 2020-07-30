@@ -62,9 +62,11 @@ signal.signal(signal.SIGINT, signal_handler)
 
 pre = "images/mars2020/"
 banners = []
-banners.append( banner( pygame, pys, pre+"M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png" ) )
-banners.append( banner( pygame, pys, pre+"s4h_logo_small.png" ) )
-banners.append( banner( pygame, pys, pre+"tps_logo_small.png" ) )
+banners.append( banner( pygame, pys, pre+"M2020-Launch-Red-Circle-Logo-Black-Text-Side-Stacked-white-lrg.png", 20 ) )
+banners.append( banner( pygame, pys, pre+"s4h_logo_small.png", 5 ) )
+banners.append( banner( pygame, pys, pre+"tps_logo_small.png", 5 ) )
+banners.append( banner( pygame, pys, pre+"helios_logo_small.png", 5 ) )
+
 print "banners:", len(banners)
 
 #Display the first banner image 
@@ -128,7 +130,7 @@ while True : #datetime.datetime.utcnow() < countdown.target_time :
       
       elapsed = datetime.datetime.utcnow() - banner_switched
       
-      if elapsed.total_seconds() > banner_interval :
+      if elapsed.total_seconds() > banners[current_banner].interval :
          current_banner +=1 
          if current_banner > len(banners) -1 :
             current_banner = 0

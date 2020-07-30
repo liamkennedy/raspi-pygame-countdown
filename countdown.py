@@ -93,9 +93,10 @@ pygame.mouse.set_visible(False)
 class banner :
       ASPECTRATIO = float( pygame.display.Info().current_w ) / float(pygame.display.Info().current_h)
       SCRIPTPATH = os.path.dirname(os.path.realpath(__file__)) # allows running from boot
-      def __init__(self, pygame, pys, filename ) :
+      def __init__(self, pygame, pys, filename, interval=30 ) :
           
           self.filename = filename
+          self.interval = interval
           self.surface = pygame.Surface(pys.screen.get_size())
           self.image = pygame.image.load( self.SCRIPTPATH+"/"+filename ) # assuming python script / directory is as expected.  May need to check this
           scaleFix = 1.05 
@@ -530,7 +531,7 @@ if __name__ == '__main__':
          
          elapsed = datetime.datetime.utcnow() - banner_switched
          
-         if elapsed.total_seconds() > banner_interval :
+         if elapsed.total_seconds() > banners[current_banner].interval :
             current_banner +=1 
             if current_banner > len(banners) -1 :
                current_banner = 0
